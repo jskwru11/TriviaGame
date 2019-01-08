@@ -1,0 +1,38 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-image: url('../images/infinityWarBG.png');
+    font-size: 2.5rem;
+    color: #000;
+}
+
+.wrapper {
+    width: 90rem;
+    height: 100vh;
+    margin: 0 auto;
+    border: .2rem solid yellow;
+}
+
+.content-title {
+    font-size: 7rem;
+}
+
+.game-screen {
+    margin-top: 10rem;
+    border: .3rem solid red;
+    height: 80%;
+    opacity: .5;
+}
+
+#basicUsage {
+    width: 20rem;
+    height: 20rem;
+}
+
+.dynamic-answer:hover {
+    border: .1rem solid pink;
+    background: yellow;
+    color: green;
+}
