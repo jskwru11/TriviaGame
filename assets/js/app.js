@@ -56,7 +56,7 @@ $(document).ready(() => {
             question: "What is the name of the dwarf that built Thanos' infinity gauntlet?",
             choice: ["everyone", "black panther", "eitri", "hulk"],
             correctAnswer: 2,
-            image: "assets/images/Eitri.png"
+            image: "assets/images/eitri.jpeg"
         },
 
     ]
@@ -71,14 +71,13 @@ $(document).ready(() => {
     let numPages = pages.length;
     let pick;
     let index = 0;
-    let newArray = [];
-    let holder = [];
+    let storeArrayValues = [];
     const interval = 1000;
     let newElement;
     let timeout;
     let selectedAnswer;
     let theRightAnswer;
-    let indexSelected = [];
+
 
 
     $('.play-again').hide();
@@ -94,14 +93,14 @@ $(document).ready(() => {
     });
 
 
-//create a countdown function to go from 30seconds to 0 seconds
+//TODO: setup Interval timer
     const setupTimer = () => {
         if (!stillTime ) {
             intervalId = setInterval(countDown, interval);
             stillTime = !stillTime;
         } 
     };
-
+//TODO: setup callback to countdown the time
     const countDown = () => {
         $('#basicUsage').html(`Time Remaining: ${timer} Seconds`);
         timer--;
@@ -115,17 +114,19 @@ $(document).ready(() => {
         }
     };
 
+//TODO: setup callback to stop the timer
+
     const stopTimer = () => {
         stillTime = !stillTime;
         clearInterval(intervalId);
 
     };
-
+//TODO: setup function to display questions answer choices
     const displayQuestion = () => {
         index = Math.floor(Math.random() * pages.length);
         pick = pages[index];
              
-        
+ //TODO: display each question and answers for each question       
         $('.question').html(`<h2>${pick.question}</h2>`);
         pick.choice.forEach((option) => {
             newElement = $('<div>').addClass('selection').attr('value', option).html(option);
@@ -133,7 +134,7 @@ $(document).ready(() => {
         });
 
 
-
+//TODO: setup eventHandler to all answers and check if the answer selected is the correct answer
     $('.selection').on('click', function() {
                 
         selectedAnswer = $(this).attr('value'); 
@@ -144,25 +145,28 @@ $(document).ready(() => {
             selectedAnswer = '';
             $('.answer').html("<h3>Correct!</h3>");
             displayImage();
-
+            
+//TODO: stop the timer if the timer is incorrect, increase the counter for incorrect answer
         } else {
             stopTimer();
             incorrect++;
             selectedAnswer = '';
-            $('.answer').html(`Wrong Answer! The correct answer is: ${theRightAnswer}`);
+            $('.answer').html(`<p>Wrong Answer! The correct answer is: ${theRightAnswer}</p>`);
             displayImage();
+            
         }
         
     });
 };
+//TODO: display the image after a question has been answered.
 
     const displayImage = () => {
         timeout = 4000;
         $('<img>').addClass('img').attr('src', pick.image).appendTo(`.answer`);
-        newArray.push(pick);
+        storeArrayValues.push(pick);
         pages.splice(index,1);
-        console.log(newArray);
-
+    
+//TODO: setup timeout on the about of time to dispaly the image
         const imageHide = setTimeout(() => {
             $('.answer').empty();
             timer = 30;
@@ -186,115 +190,12 @@ $(document).ready(() => {
     }, timeout);
     
     };
-    
+//TODO: setup play again / restart button to play the game again.    
     $('.play-again').on('click', () => {
         $('.play-again').hide();
         $('.question, .answer').empty();
-        // for(let i = 0; i < newArray.length; i++) {
-        //     pages.push(newArray[i]);
-        // }
         setupTimer();
-        pages = [...newArray];
+        pages = [...storeArrayValues];
         displayQuestion();
     });
 });
-
-// for (let i = 0; i<pick.choice.length; i++) {
-//     newElement = $('<div>').addClass('selection').attr('value', i).html(pick.choice[i]);
-//     $('.answer').append(newElement);
-// }
-
-        // for (let i = 0; i<pick.choice.length; i++) {
-        //     newElement = $('<div>').addClass('selection').attr('value', i).html(pick.choice[i]);
-        //     $('.answer').append(newElement);
-        // }
-
-
-        // for (let i = 0; i<pick.choice.length; i++) {
-        //     newElement = $('<div>').addClass('selection').attr('value', i).html(pick.choice[i]);
-        //     $('.answer').append(newElement);
-        // }
-
-//     // select a question and display it to the screen with answers
-//     const displayQuestion = (pageNum, questionNum) => {
-//         const selectedQuestion = gamePlay[`page${pageNum}`].questions[questionNum];
-//         return selectedQuestion;
-//     };
-
-//     const displayAnswer = (pageNum, answerNum) => {
-//         const answer = gamePlay[`page${pageNum}`].answers[answerNum];
-//         return answer;
-
-//     };
-
-//     /** format: 
-//     * Time Remaining: time Seconds
-//     * Question?
-//     * answers below with on hover highlight*/
-// //    const displayQuestionAnswer = (obj) => {
-// //        $('.question').html(randomQuestion(gamePlay.questions.answers));
-// //        for (let i = 1; i<5; i++) {
-           
-// //            $('<p></p>').addClass('dynamic').html(obj[`answer${i}`].correct).appendTo('.game-screen').on('click', function() {
-// //                if ($(this).html() === 'everyone') {
-// //                    console.log('you got it right');
-// //                    displayQuestionAnswer(answers);
-// //                     countDown();
-// //                } else {
-// //                 console.log(`c'mon man`);
-// //                 console.log($(this).html());
-// //                }
-// //            });
-// //        }
-
-// //    };
-
-//    const renderQuestion = (pNum, qNum) => {
-//         let pageNumber = 1;
-//         let index = 0;
-
-//         countDown();
-//        $('<p></p>').addClass('dynamic-question').html(displayQuestion(pNum, qNum)).appendTo('.game-screen');
-//        $('<p></p>').addClass('dynamic-answer').html(displayAnswer(pNum, 0)).appendTo('.game-screen');
-//        $('<p></p>').addClass('dynamic-answer').html(displayAnswer(pNum, 1)).appendTo('.game-screen');
-//        $('<p></p>').addClass('dynamic-answer').html(displayAnswer(pNum, 2)).appendTo('.game-screen');
-//        $('<p></p>').addClass('dynamic-answer').html(displayAnswer(pNum, 3)).appendTo('.game-screen');
-
-//        $('.dynamic-answer').on('click', function() {
-//         while (pageNumber < 5) {
-//             let stillTime = true;
-//             if ($(this).html() !== "everyone" || stillTime) {
-//                 incorrect++;
-//                 index++;
-//                 pageNumber++;
-//                 stillTime = !stillTime;
-//                 $("dynamic-question, dynamic-answer").remove();
-//                 renderQuestion(pageNumber,index);
-//             } else if (!stillTime) {
-//                 unAnswered++;
-//                 index++;
-//                 pageNumber++;
-//                 stillTime = !stillTime;
-//                 renderQuestion(pageNumber,index);
-//             } else {
-//                 correct++;
-//                 index++;
-//                 pageNumber++;
-//                 stillTime = !stillTime;
-//                 $('.dynamic-question, .dynamic-answer').remove();
-//                 renderQuestion(pageNumber,index);
-//             }
-//         } 
-//         renderFinalScreen();
-
-
-//     });
-//    };
-
-//    const renderFinalScreen = () => {
-//     $('<p></p>').addClass('end-game').html(`All done, heres how you did!`).appendTo('.game-screen');
-//     $('<p></p>').addClass('answers-correct').html(`Correct Answers: ${correct}`).appendTo('.game-screen');
-//     $('<p></p>').addClass('answers-incorrect').html(`Incorrect Answers: ${incorrect}`).appendTo('.game-screen');
-//     $('<p></p>').addClass('unanswered').html(`Unanswered: ${unAnswered}`).appendTo('.game-screen');
-//    };
-

@@ -12,7 +12,6 @@ body {
     width: 90rem;
     height: 100vh;
     margin: 0 auto;
-    border: .2rem solid yellow;
 }
 
 .content-title {
@@ -21,7 +20,6 @@ body {
 
 .game-screen {
     margin-top: 10rem;
-    border: .3rem solid red;
     height: 80%;
     opacity: 1;
 }
@@ -33,8 +31,10 @@ body {
 
 .selection:hover {
     border: .1rem solid pink;
-    background: yellow;
-    color: green;
+    background: rgb(255, 136, 0);
+    color: yellow;
+    font-size: 5rem;
+    cursor: grabbing;
 }
 
 img {
@@ -42,6 +42,7 @@ img {
     opacity: 1;
 }
 
-.answer {
+.answer, .question {
     width: fit-content;
+    text-align: center;
 }
