@@ -23,16 +23,25 @@ body {
     margin-top: 10rem;
     border: .3rem solid red;
     height: 80%;
-    opacity: .5;
+    opacity: 1;
 }
 
 #basicUsage {
-    width: 20rem;
-    height: 20rem;
+    width: fit-content;
+    height: 10rem;
 }
 
-.dynamic-answer:hover {
+.selection:hover {
     border: .1rem solid pink;
     background: yellow;
     color: green;
+}
+
+img {
+    margin-top: 2rem;
+    opacity: 1;
+}
+
+.answer {
+    width: fit-content;
 }
